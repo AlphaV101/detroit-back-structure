@@ -1,0 +1,53 @@
+class EmotionTracker:
+    def _init_(self, character_name):
+        self.character_name = character_name
+        self.emotion_log = []
+
+    def log_emotion(self):
+        """Record an emotional change"""
+        emotion = input("Enter emotion (e.g., Happy, Sad, Angry, Surprised, etc.): ")
+        context = input("Briefly describe the situation/context: ")
+        log_entry = {
+            "Date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+            "Emotion": emotion,
+            "Context": context
+        }
+        self.emotion_log.append(log_entry)
+        print("Emotion logged successfully!")
+
+    def view_emotion_log(self):
+        """Display the emotional journey of the character"""
+        if not self.emotion_log:
+            print("No emotions logged yet.")
+            return
+        print(f"\n*Emotional Journey of {self.character_name}*\n")
+        for i, log_entry in enumerate(self.emotion_log, start=1):
+            print(f"*Log #{i}*")
+            print(f"Date: {log_entry['Date']}")
+            print(f"Emotion: *{log_entry['Emotion']}*")
+            print(f"Context: {log_entry['Context']}\n")
+
+def main():
+    print("*Detroit: Become Human Emotion Tracker*")
+    character_name = input("Select a character (Kara, Connor, or Markus): ")
+    tracker = EmotionTracker(character_name)
+
+    while True:
+        print("\n*Menu*")
+        print("1. Log an emotional change")
+        print("2. View emotional journey")
+        print("3. Exit")
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            tracker.log_emotion()
+        elif choice == "2":
+            tracker.view_emotion_log()
+        elif choice == "3":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please choose again.")
+
+if _name_ == "_main_":
+    main()
