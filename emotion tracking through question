@@ -1,0 +1,61 @@
+/python 3.x (for simplicity and wide compatibility)
+The Program:/
+class EmotionTracker:
+    def _init_(self):
+        self.emotions = {
+            "Happy": 0,
+            "Sad": 0,
+            "Angry": 0,
+            "Neutral": 0
+        }
+
+    def ask_questions(self):
+        print("Please answer with the corresponding number (1/2/3/4):")
+        
+        # Question 1: General Mood
+        print("\n1. How has your day been so far?")
+        print("1. Great", "2. Average", "3. Bad", "4. Haven't noticed", sep='\n')
+        answer = input("Your choice: ")
+        if answer == "1":
+            self.emotions["Happy"] += 1
+        elif answer == "3":
+            self.emotions["Sad"] += 1
+        elif answer == "4":
+            self.emotions["Neutral"] += 1
+        
+        # Question 2: Energy Levels
+        print("\n2. How would you describe your energy levels today?")
+        print("1. High", "2. Medium", "3. Low", "4. Very Low", sep='\n')
+        answer = input("Your choice: ")
+        if answer in ["1", "2"]:
+            self.emotions["Happy"] += 1
+        elif answer in ["3", "4"]:
+            self.emotions["Sad"] += 1
+        
+        # Question 3: Stress Levels
+        print("\n3. How stressed do you feel today?")
+        print("1. Not Stressed", "2. A Bit", "3. Quite Stressed", "4. Extremely Stressed", sep='\n')
+        answer = input("Your choice: ")
+        if answer == "1":
+            self.emotions["Happy"] += 1
+        elif answer in ["3", "4"]:
+            self.emotions["Angry"] += 1  # Assuming high stress correlates with anger
+        elif answer == "2":
+            self.emotions["Neutral"] += 1
+        
+    def analyze_emotion(self):
+        dominant_emotion = max(self.emotions, key=self.emotions.get)
+        if self.emotions[dominant_emotion] == 1:  # If all are 1, it means user is Neutral
+            return "Neutral"
+        else:
+            return dominant_emotion
+
+    def run(self):
+        print("Welcome to the Emotion Tracker.")
+        self.ask_questions()
+        emotion = self.analyze_emotion()
+        print(f"\nBased on your answers, your dominant emotion seems to be: *{emotion}*")
+
+if _name_ == "_main_":
+    tracker = EmotionTracker()
+    tracker.run()
