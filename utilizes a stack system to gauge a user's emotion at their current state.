@@ -1,0 +1,78 @@
+class EmotionStack:
+    def __init__(self):
+        self.stack = []
+
+    def push_emotion(self, emotion):
+        """Add an emotion to the top of the stack."""
+        self.stack.append(emotion)
+        print(f"Emotion '{emotion}' added to the stack.")
+
+    def pop_emotion(self):
+        """Remove the top emotion from the stack if it's not empty."""
+        if self.stack:
+            emotion = self.stack.pop()
+            print(f"Emotion '{emotion}' removed from the stack.")
+        else:
+            print("The stack is empty.")
+
+    def get_current_emotion(self):
+        """Return the current emotional state (top of the stack)."""
+        if self.stack:
+            return self.stack[-1]
+        else:
+            return "Neutral"  # Default state if stack is empty
+
+    def display_stack(self):
+        """Print the current stack of emotions."""
+        print("Current Emotion Stack:", self.stack)
+
+
+def main():
+    emotion_stack = EmotionStack()
+    emotion_stack.push_emotion("Neutral")  # Initialize with a neutral state
+
+    while True:
+        print("\n--- Emotional State Analyzer ---")
+        print("1. Respond to a situation")
+        print("2. View current emotional state")
+        print("3. Display emotion stack")
+        print("4. Reset emotional state")
+        print("5. Exit")
+        
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            situation = input("Describe a recent situation (e.g., 'had a good meal', 'argued with someone'): ")
+            response = input("How did you feel about it? (happy, sad, angry, surprised, neutral): ")
+            emotions = {
+                "happy": "Joy",
+                "sad": "Sorrow",
+                "angry": "Anger",
+                "surprised": "Surprise",
+                "neutral": "Neutral"
+            }
+            emotion_stack.push_emotion(emotions.get(response.lower(), "Neutral"))
+            print(f"Situation: {situation} -> Emotion: {emotions.get(response.lower(), 'Neutral')}")
+
+        elif choice == "2":
+            print("Current Emotional State:", emotion_stack.get_current_emotion())
+
+        elif choice == "3":
+            emotion_stack.display_stack()
+
+        elif choice == "4":
+            while emotion_stack.stack:
+                emotion_stack.pop_emotion()
+            emotion_stack.push_emotion("Neutral")
+            print("Emotional state reset to Neutral.")
+
+        elif choice == "5":
+            print("Exiting the Emotional State Analyzer.")
+            break
+
+        else:
+            print("Invalid choice. Please choose a valid option.")
+
+
+if __name__ == "__main__":
+    main()
